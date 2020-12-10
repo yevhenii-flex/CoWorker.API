@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CoWorker.API.Data.Migrations
+namespace CoWorker.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201116221259_Models")]
-    partial class Models
+    [Migration("20201210194400_Settings")]
+    partial class Settings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,13 +102,13 @@ namespace CoWorker.API.Data.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -130,7 +130,7 @@ namespace CoWorker.API.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CurrentSettingsId")
+                    b.Property<int?>("CurrentSettingsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -320,15 +320,13 @@ namespace CoWorker.API.Data.Migrations
                 {
                     b.HasOne("CoWorker.API.Models.SettingsRecord", "CurrentSettings")
                         .WithMany()
-                        .HasForeignKey("CurrentSettingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CurrentSettingsId");
                 });
 
             modelBuilder.Entity("CoWorker.API.Models.SettingsRecord", b =>
                 {
                     b.HasOne("CoWorker.API.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("Settings")
                         .HasForeignKey("ApplicationUserId");
                 });
 

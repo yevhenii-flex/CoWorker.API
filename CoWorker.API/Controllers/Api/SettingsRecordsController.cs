@@ -96,9 +96,10 @@ namespace CoWorker.API.Controllers.Api
         {
             SettingsRecord settingsRecord = _mapper.Map<SettingsRecord>(settingsRecordViewModel);
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (settingsRecordViewModel.ApplicationUser.Id == null) settingsRecordViewModel.ApplicationUser.Id = user.Id;
+            if (settingsRecordViewModel?.ApplicationUser == null) settingsRecord.ApplicationUser = user;
 
-            _context.SettingsRecords.Add(settingsRecord);
+             _context.SettingsRecords.Add(settingsRecord);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSettingsRecord", new { id = settingsRecord.Id }, settingsRecord);

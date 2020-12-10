@@ -10,7 +10,7 @@ namespace CoWorker.API.Models
     {
         public string FisrtName { get; set; }
         public string LastName { get; set; }
-        public SettingsRecord Settings { get; set; }
+        public List<SettingsRecord> Settings { get; set; }
 
     }
 }

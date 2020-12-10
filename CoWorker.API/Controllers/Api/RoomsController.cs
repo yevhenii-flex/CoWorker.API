@@ -135,7 +135,7 @@ namespace CoWorker.API.Controllers.Api
 
             foreach(var record in bookingRecords)
             {
-                if (record.StartTime <= currentDate && record.EndTime >= currentDate) room.CurrentSettingsId = record.ApplicationUser.Settings.Id;
+                if (record.StartTime <= currentDate && record.EndTime >= currentDate) room.CurrentSettingsId = record.ApplicationUser.Settings.LastOrDefault().Id;
             }
 
             await _context.SaveChangesAsync();

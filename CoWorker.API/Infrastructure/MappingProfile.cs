@@ -20,7 +20,7 @@ namespace CoWorker.API.Infrastructure
             CreateMap<Room, RoomViewModel>();
 
             CreateMap<SettingsRecord, SettingsRecordViewModel>();
-            CreateMap<SettingsRecord, SettingsRecordViewModel>();
+            CreateMap<SettingsRecordViewModel, SettingsRecord>();
 
             CreateMap<ApplicationUser, UserViewModel>();
             CreateMap<UserViewModel, ApplicationUser>();

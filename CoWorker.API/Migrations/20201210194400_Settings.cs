@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CoWorker.API.Data.Migrations
+namespace CoWorker.API.Migrations
 {
-    public partial class NavigationProperty : Migration
+    public partial class Settings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +13,7 @@ namespace CoWorker.API.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SettingsRecords_ApplicationUserId",
                 table: "SettingsRecords",
-                column: "ApplicationUserId",
-                unique: true,
-                filter: "[ApplicationUserId] IS NOT NULL");
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -27,7 +25,9 @@ namespace CoWorker.API.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_SettingsRecords_ApplicationUserId",
                 table: "SettingsRecords",
-                column: "ApplicationUserId");
+                column: "ApplicationUserId",
+                unique: true,
+                filter: "[ApplicationUserId] IS NOT NULL");
         }
     }
 }
