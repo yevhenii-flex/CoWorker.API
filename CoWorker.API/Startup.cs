@@ -68,6 +68,8 @@ namespace CoWorker.API
             services.AddSingleton(mapper);
 
             services.AddSwaggerGen();
+
+            services.AddCors()
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -103,7 +105,9 @@ namespace CoWorker.API
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
