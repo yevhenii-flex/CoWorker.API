@@ -109,7 +109,7 @@ namespace CoWorker.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
