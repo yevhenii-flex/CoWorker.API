@@ -12,5 +12,6 @@ namespace CoWorker.API.ViewModels
         public DateTime? EndTime { get; set; }
         public UserViewModel ApplicationUser { get; set; }
         public RoomViewModel Room { get; set; }
+        public int RoomId { get; set; }
     }
 }

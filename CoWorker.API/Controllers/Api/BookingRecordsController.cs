@@ -50,6 +50,22 @@ namespace CoWorker.API.Controllers.Api
 
             return _mapper.Map<BookingRecordViewModel>(bookingRecord);
         }
+        [HttpGet("byroom/{id}")]
+        public async Task<ActionResult> GetBookingRecordsByRoom(int id)
+        {
+            var bookingRecords = (await _context.BookingRecords.Where(b => b.RoomId == id).ToListAsync()).Where(b => IsToday(b.StartTime));
+
+            if (bookingRecords == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(_mapper.Map<List<BookingRecordViewModel>>(bookingRecords));
+        }
+        private bool IsToday(DateTime? startTime)
+        {
+            return startTime.GetValueOrDefault().DayOfYear == DateTime.Now.DayOfYear;
+        }
 
         // PUT: api/BookingRecords/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -91,10 +107,12 @@ namespace CoWorker.API.Controllers.Api
         [HttpPost]
         public async Task<ActionResult<BookingRecordViewModel>> PostBookingRecord(BookingRecordViewModel bookingRecordViewModel)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            if(bookingRecordViewModel.ApplicationUser.Id == null) bookingRecordViewModel.ApplicationUser.Id = user.Id;
-
             BookingRecord bookingRecord = _mapper.Map<BookingRecord>(bookingRecordViewModel);
+
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if(bookingRecordViewModel?.ApplicationUser?.Id == null) bookingRecord.ApplicationUserId = user.Id;
+
+            
             _context.BookingRecords.Add(bookingRecord);
             await _context.SaveChangesAsync();
 
